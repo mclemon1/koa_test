@@ -1,13 +1,11 @@
 
 <template>
   <el-row class="content">
+    <p>{{userInfo.name}},请留下记录</p>
+    <p v-for="(item,index) in list" :key="index" v-show="item.status">{{item.content}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="close" @click="deleteRow(item)">x</span></p>
     <el-col :xs="24" :sm="{span: 6,offset: 9}">
       <el-row>
-        <el-input 
-          v-model="text" 
-          placeholder="请输入"
-          type="text">
-        </el-input>
+        <el-input v-model="text" placeholder="请输入" type="text" @keyup.enter.native="submit"></el-input>
         <el-button type="primary" @click="submit">记录</el-button>
       </el-row>
     </el-col>
@@ -15,40 +13,93 @@
 </template>
 
 <script>
+import jwt from 'jsonwebtoken';
 export default {
   data () {
     return {
-      text: ''
+      text: '',
+      userInfo:"",
+      list:[],
     };
   },
   mounted(){
-    // this.$axios.get("http://127.0.0.1:8889/auth/user/1").then(res => {
-    //   console.log(res,"res");
-    // });
+    const token = sessionStorage.getItem('demo-token');
+    if(token != null && token != 'null'){
+        let decode = jwt.decode(token); // 解析token
+        this.userInfo = decode;  // decode解析出来实际上就是{name: XXX,id: XXX}
+        this.getList();
+    }
   },
   methods:{
+    getList(){
+        const vm = this;
+        this.$axios.get("http://127.0.0.1:8889/api/list/"+this.userInfo.id).then(res => {
+            if(res.success){
+                vm.list = res.list;
+            }else{
+                this.$message.error(res.info);
+            }
+        },(err) => {
+            this.$message.error('请求错误！')
+        });
+    },
     submit(){
       const vm = this;
       const params = {
-        name:vm.account,
-        password:vm.password
+        user_id: vm.userInfo.id, // 用户的id，用来确定给哪个用户创建
+        content: vm.text,
+        status: true
       }
-      this.$axios.post("http://127.0.0.1:8889/auth/user",params).then(res => {
+      vm.$axios.post("http://127.0.0.1:8889/api/addlist",params).then(res => {
         if(res.success){ // 如果成功
-          sessionStorage.setItem('demo-token',res.token); // 用sessionStorage把token存下来
-          this.$message({ // 登录成功，显示提示语
+          vm.$message({ // 登录成功，显示提示语
             type: 'success',
-            message: '登录成功！'
-          }); 
-          this.$router.push('/list') // 进入todolist页面，登录成功
+            message: '记录成功！'
+          });
+          vm.text = "";
+          vm.getList();
         }else{
-          this.$message.error(res.info); // 登录失败，显示提示语
-          sessionStorage.setItem('demo-token',null); // 将token清空
+          vm.$message.error(res.info); // 登录失败，显示提示语
         }
       },(err) => {
-        this.$message.error('请求错误！')
-        sessionStorage.setItem('demo-token',null); // 将token清空
+        vm.$message.error('请求错误！')
       });
+    },
+    deleteRow(item){
+        const vm = this;
+        vm.$axios.delete("http://127.0.0.1:8889/api/list/"+item.id).then(res => {
+            if(res.success){ // 如果成功
+                vm.$message({ // 登录成功，显示提示语
+                    type: 'success',
+                    message: '删除成功！'
+                });
+                vm.getList();
+            }else{
+                vm.$message.error(res.info);
+            }
+        },(err) => {
+            vm.$message.error('请求错误！')
+        });
+    },
+    putRow(item){
+        const vm = this;
+        const params = {
+            id:1,
+            status:true
+        }
+        vm.$axios.put("http://127.0.0.1:8889/api/list/1",params).then(res => {
+            if(res.success){ // 如果成功
+                vm.$message({ // 登录成功，显示提示语
+                    type: 'success',
+                    message: '更新成功！'
+                });
+                vm.getList();
+            }else{
+                vm.$message.error(res.info);
+            }
+        },(err) => {
+            vm.$message.error('请求错误！')
+        });
     }
   }
 };
@@ -59,4 +110,5 @@ export default {
 .title{font-size:28px;}
 .el-input{margin:12px 0;}
 .el-button{width:100%;margin-top:12px;}
+.close{cursor: pointer;}
 </style>

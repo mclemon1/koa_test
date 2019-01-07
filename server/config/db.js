@@ -8,5 +8,5 @@ const teatDb = new Sequelize('mysql://root:123456@localhost/teat_db',{
 }) 
 
 module.exports = {
-    teatDb // 将Todolist暴露出接口方便Model调用
+    teatDb // 将库暴露出接口方便Model调用
 }

@@ -18,7 +18,7 @@ const postUserAuth = async (ctx, next) =>{
     const data = ctx.request.body; // 获取post里传过来的body里的data
     const userInfo = await user.getUserByName(data.name);
     if(userInfo != null){ // 如果查无此用户会返回null
-        console.log(bcrypt.hashSync(data.password,bcrypt.genSaltSync(10)));
+        // console.log(bcrypt.hashSync(data.password,bcrypt.genSaltSync(10)));
         if(userInfo.password != data.password){
             ctx.body = {
                 success: false, // success标志位是方便前端判断返回是正确与否
@@ -30,8 +30,7 @@ const postUserAuth = async (ctx, next) =>{
                 id: userInfo.id
             }
             const secret = 'vue-koa-demo'; // 指定密钥，这是之后用来判断token合法性的标志
-            // const token = jwt.sign(userToken,secret); // 签发token
-            const token = jwt.sign(userToken, secret)
+            const token = jwt.sign(userToken,secret); // 签发token
             ctx.body = {
                 success: true,
                 token: token, // 返回token

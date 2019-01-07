@@ -30,6 +30,23 @@ Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 
+router.beforeEach((to,from,next) =>{
+  const token = sessionStorage.getItem('demo-token');
+  if(to.path == '/login'){ // 如果是跳转到登录页的
+    if(token != 'null' && token != null){
+      next('/list') // 如果有token就转向list不返回登录页
+    }
+    next(); // 否则跳转回登录页
+  }else{
+    if(token != 'null' && token != null){
+      Vue.prototype.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+      next() // 如果有token就正常转向
+    }else{
+      next('/login') // 否则跳转回登录页
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
