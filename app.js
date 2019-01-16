@@ -6,6 +6,7 @@ const bodyparser = require('koa-bodyparser')
 const router = require('koa-router')();
 const auth = require('./server/routes/auth.js'); 
 const api = require('./server/routes/api.js'); 
+const test = require('./server/routes/test.js'); 
 const Kcors = require('kcors');
 const jwt = require('koa-jwt');
 const path =require('path');
@@ -58,6 +59,7 @@ app.on('error', function(err, ctx){
 //路由使用
 router.use('/auth', auth.routes());
 router.use('/api',jwt({secret: 'vue-koa-demo'}), api.routes());
+router.use('/test', test.routes());
 app.use(router.routes())
 //开始监听
 app.listen(8889,() => {

@@ -7,6 +7,7 @@
       <el-row>
         <el-input v-model="text" placeholder="请输入" type="text" @keyup.enter.native="submit"></el-input>
         <el-button type="primary" @click="submit">记录</el-button>
+        <el-button type="primary" @click="test">test</el-button>
       </el-row>
     </el-col>
   </el-row>
@@ -97,6 +98,14 @@ export default {
             }else{
                 vm.$message.error(res.info);
             }
+        },(err) => {
+            vm.$message.error('请求错误！')
+        });
+    },
+    test(){
+        const vm = this;
+        vm.$axios.post("http://127.0.0.1:8889/test").then(res => {
+            console.log(res);
         },(err) => {
             vm.$message.error('请求错误！')
         });
