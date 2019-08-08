@@ -1,0 +1,24 @@
+{
+  "name": "dev-api",
+  "script": "./app.js",
+  "cwd": "./",
+  "watch": [
+    "./app.js",
+    "./server/routes"
+  ],
+  "ignore_watch": [
+    "node_modules",
+    "logs"
+  ],
+  "watch_options": {
+    "followSymlinks": false
+  },
+  "error_file": "./logs/app-err.log",
+  "out_file": "./logs/app-out.log",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "env_dev": {
+    "NODE_ENV": "development"
+  }
+}

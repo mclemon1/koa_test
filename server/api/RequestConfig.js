@@ -6,6 +6,7 @@
 // import Qs from 'qs';
 // import {BASE_URL, ACCESS_TOKEN, TENANT_ID} from "../config/env";
 const BASE_URL = "https://op.huishoubao.com";
+// const BASE_URL = "https://newprofit.huishoubao.com";
 module.exports = {
   config: {
     url: "/",
@@ -19,13 +20,13 @@ module.exports = {
       // let objData = JSON.parse(data);
       return data;
     }],
-    // headers: {"Content-Type": "application/json","HSB-OPENAPI-CALLERSERVICEID":"110001"},
-    headers: {"Content-Type": "text/plain; application/json; charset=utf-8"},
+    headers: {"Content-Type": "text/plain; application/json; charset=utf-8","HSB-OPENAPI-CALLERSERVICEID":"110001"},
+    // headers: {"Content-Type": "text/plain; application/json; charset=utf-8"},
     // body类数据，只能在post、put的时候调用
     data: {},
     // 地址栏的参数 query
     params: {},
-    timeout: 1000 * 50, // 默认超时时间是30s
+    timeout: 1000 * 30, // 默认超时时间是30s
     responseType: "json"
   }
 };

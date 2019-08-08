@@ -1,0 +1,12 @@
+process.env.NODE_ENV production
+Koa is listening in 8889
+Server listening on: http://localhost:9998
+client connected
+1 getmessage
+  <-- GET /api/list/1
+Executing (default): SELECT `id`, `content` FROM `list` AS `list` WHERE `list`.`user_id` = '1' AND `list`.`status` = '1';
+GET /api/list/1 - 55ms
+  --> GET /api/list/1 200 58ms 230b
+process.env.NODE_ENV development
+Koa is listening in 8889
+Server listening on: http://localhost:9998

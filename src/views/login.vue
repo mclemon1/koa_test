@@ -19,10 +19,14 @@
         <el-button type="primary" @click="login">登录</el-button>
       </el-row>
     </el-col>
+    <!-- <canvas id="live2dcanvas" width="300" height="600" class="live2d"></canvas> -->
+    <!-- <div v-html='live2d("live2dcanvas")'>{{live2d("live2dcanvas")}}</div> -->
+    <!-- <%- live2d("live2dcanvas") %> -->
   </el-row>
 </template>
 
 <script>
+import config from '@/config'
 export default {
   data () {
     return {
@@ -34,6 +38,22 @@ export default {
     // this.$axios.get("http://127.0.0.1:8889/auth/user/1").then(res => {
     //   console.log(res,"res");
     // });
+    // const wxParams = {
+    //   "appId":"wxea9d7eb705e40245",
+    //   "appsecret":"3197ab0affe0835bc64f167129c7bcef",
+    //   // "cbUrl":"http://10.0.10.216:3003/"
+    //   "cbUrl":"https://www.baidu.com/"
+    //   // "cbUrl":"https://op.huishoubao.com/index.html#/?login_token=2c31a0fdd4dd43c6147ddc73a7e7f92c&user_id=1540"
+    // }
+    // console.log(encodeURIComponent(wxParams.cbUrl));
+    // const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wxParams.appId}&redirect_uri=${encodeURIComponent(wxParams.cbUrl)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
+    // console.log(this.$router);
+    // // window.location.href = url;
+
+    // const getUrl = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${wxParams.appId}&secret=${wxParams.appsecret}&code=0112eJlI0RXBhg2lLciI0GEplI02eJl5&grant_type=authorization_code`
+    // this.$axios.post(getUrl).then(res => {
+    //   console.log(res,"res");
+    // });
   },
   methods:{
     login(){
@@ -42,7 +62,7 @@ export default {
         name:vm.account,
         password:vm.password
       }
-      this.$axios.post("http://127.0.0.1:8889/auth/user",params).then(res => {
+      this.$axios.post(config.hostUrl + "/auth/user",params).then(res => {
         if(res.success){ // 如果成功
           sessionStorage.setItem('demo-token',res.token); // 用sessionStorage把token存下来
           this.$message({ // 登录成功，显示提示语

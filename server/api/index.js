@@ -29,7 +29,7 @@ function handleData(url, method = "get", params = {}, data = {}) {
   config.params = params;
   config.params = data;
   config.data = data;
-  // config.headers["HSB-OPENAPI-SIGNATURE"] = utility.md5(`${data}_090a2a8379414357eb6c808717249992`);
+  config.headers["HSB-OPENAPI-SIGNATURE"] = utility.md5(`${data}_090a2a8379414357eb6c808717249992`);
   return config;
   
   let httpParams = {
@@ -68,10 +68,10 @@ module.exports = {
   doRequest(url = "", method, params = {}, data = {}) {
     return new Promise((resolve, reject) => {
       const config = handleData(url, method, params, data);
-      console.log("config:",config);
+      // console.log("config:",config);
       $http.request(config).then(res => {
         resolve(res);
-        console.log("res:",res);
+        // console.log("res:",res);
       }).catch(error => {
         console.log("catchError:", error);
         reject(error);

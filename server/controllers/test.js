@@ -33,15 +33,21 @@ const postUrl = async (ctx, next) =>{
     //     console.log("error: " + e.message);
     // })
     // req.write(data);
-    
 
-    // let res = await axios.post("https://op.huishoubao.com/index/index",data);
+    let res = await axios.post("https://op.huishoubao.com/index/index",data);
     // let res = await axios.post("119.29.8.123",data);
     // let res = await api.doRequest("/", "POST",{},{userId:"604337006"});
-    let res = await api.doRequest("/index/index", "POST",{},data);
     // console.log("req: " + req);
-    console.log(res.data);
-    ctx.body = res.data;
+    // const params = {"_head":{"_version":"0.01","_msgType":"request","_timestamps":"1548991263","_interface":"profit.getProfitListConfig","_remark":""},"_param":{"profitBeginTime":"","profitEndTime":"","couponName":"","timeType":"","couponType":"2","page":1,"pageSize":10,"user_id":"1540","login_token":"fe36bdf0ecc8a53b19cf1729b361a03f"}};
+    // let res = await api.doRequest("/index/index", "POST",{},params);    
+    console.log('res:',res.data);
+    ctx.body = {
+        data:res.data,
+        success: true
+    }
+    // const params = {"_head":{"_version":"0.01","_msgType":"request","_timestamps":"1548991263","_interface":"PlatProfit.Admin.Activity.GetActivityList","_remark":""},"_param":{"beginDate":"","endDate":"","activityName":"","channelId":"","activityStatus":"","pageIndex":1,"pageSize":10,"channelFlag":"","user_id":"1540","login_token":"fe36bdf0ecc8a53b19cf1729b361a03f"}};
+    // let res = await api.doRequest("/index/index", "POST",{},params);
+    // ctx.body = res.data;
 }
 
 module.exports = {

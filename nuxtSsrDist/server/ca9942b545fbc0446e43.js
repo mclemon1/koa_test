@@ -1,0 +1,2 @@
+exports.ids=[2],exports.modules={105:function(t,e,l){"use strict";l.r(e);var o={layout:"blog",asyncData:t=>(console.log(t,"context"),{name:"World"}),data:()=>({title:"posts"})},n=l(3),component=Object(n.a)(o,function(){var t=this.$createElement;return(this._self._c||t)("div",[this._ssrNode("<div>use blog layout</div> <div>"+this._ssrEscape("this is "+this._s(this.title))+"</div>\n  check the ssr\n")])},[],!1,null,null,"85bd837a");e.default=component.exports}};
+//# sourceMappingURL=ca9942b545fbc0446e43.js.map
