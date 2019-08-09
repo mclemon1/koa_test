@@ -27,3 +27,27 @@ client connected
 Executing (default): SELECT `id`, `content` FROM `list` AS `list` WHERE `list`.`user_id` = '1' AND `list`.`status` = '1';
 GET /api/list/1 - 73ms
   --> GET /api/list/1 200 75ms 230b
+client connected
+1 getmessage
+client connected
+1 getmessage
+client connected
+1 getmessage
+client connected
+1 getmessage
+client connected
+1 getmessage
+client connected
+1 getmessage
+client connected
+1 getmessage
+  <-- GET /api/list/1
+Executing (default): SELECT `id`, `content` FROM `list` AS `list` WHERE `list`.`user_id` = '1' AND `list`.`status` = '1';
+GET /api/list/1 - 10ms
+  --> GET /api/list/1 200 10ms 230b
+client connected
+1 getmessage
+client connected
+1 getmessage
+client connected
+1 getmessage
